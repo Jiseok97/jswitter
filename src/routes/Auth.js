@@ -5,6 +5,8 @@ const Auth = () => {
   const [password, setPassword] = useState("");
 
   // 각 input마다 onChange 꼭 사용해야 값을 입력시 값을 받아 input에 들어감
+  // event는 무슨일이 일어났는가? 뜻함
+  // target: 변경이 일어난 부분
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -15,17 +17,19 @@ const Auth = () => {
       setPassword(value);
     }
   };
+  // preventDefault() 가 없으면 email, password를 입력하여 로그인 버튼을 누룰시,
+  // 새로고침과 함께 값들이 사라짐
   const onSubmit = (event) => {
     // 페이지 새로고침을 막기 위한 preventDefault()
-    // preventDefault() -> 이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지 않고 그 이벤트를 취소함
     event.preventDefault();
   };
   return (
     <div>
       <form onSubmit={onSubmit}>
+        {/* input의 value는 state에 저장됨 */}
         <input
           name="email"
-          type="text"
+          type="email"
           placeholder="Email"
           required
           value={email}
