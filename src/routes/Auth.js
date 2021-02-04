@@ -5,7 +5,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
-
+  const [error, setError] = useState("");
   // 각 input마다 onChange 꼭 사용해야 값을 입력시 값을 받아 input에 들어감
   // event는 무슨일이 일어났는가? 뜻함
   // target: 변경이 일어난 부분
@@ -40,9 +40,12 @@ const Auth = () => {
       }
       console.log(data);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     }
   };
+
+  const toggleAccount = () => setNewAccount((prev) => !prev);
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -64,7 +67,11 @@ const Auth = () => {
           onChange={onChange}
         />
         <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
+        {error}
       </form>
+      <span onClick={toggleAccount}>
+        {newAccount ? "Log In" : "Create Account"}
+      </span>
       <div>
         <button>Continue with Google</button>
         <button>Continue with Github</button>
