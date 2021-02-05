@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializing..."}
-      <footer>&copy;{new Date().getFullYear} JSwitter </footer>
+      <footer>&copy; {new Date().getFullYear} JSwitter </footer>
     </>
   );
 }
