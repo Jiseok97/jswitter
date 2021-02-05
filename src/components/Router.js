@@ -8,6 +8,7 @@ import Profile from "routes/Profile";
 const AppRouter = ({ isLoggedIn }) => {
   return (
     <Router>
+      {/* && => Navigation이 존재하려면, isLoggedIn이 true여야 함 */}
       {isLoggedIn && <Navigation />}
       <Switch>
         {isLoggedIn ? (
@@ -24,6 +25,7 @@ const AppRouter = ({ isLoggedIn }) => {
             </Route>
             {/* <Redirect from="*" to="/" /> 
             단, import Redirect 할 것.
+            Redirect는 다 "/"로 redirect 됨
             여기서도 가능하나 Profile.js에서 프로그램상으로 
             Home 페이지로 이동하는 function 추가함*/}
           </>
