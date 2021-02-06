@@ -18,3 +18,7 @@ firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 
 export const authService = firebase.auth();
+export const dbService = firebase.firestore();
+
+// Cloud Firebase의 Database는 NoSQL
+// Collection: like 폴더, Document: like 문서
