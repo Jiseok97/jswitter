@@ -8,7 +8,8 @@ const Home = () => {
   const onChange = (event) => {
     const {
       target: { value },
-    } = event;
+    } = event; // event 안에 있는 target 안에 있는 value를 가져옴
+    setJSweet(value);
   };
   return (
     <div>
