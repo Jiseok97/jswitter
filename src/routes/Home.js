@@ -7,7 +7,11 @@ const Home = () => {
     // async -> await가 promise로 리턴하니까 넣어줌
     event.preventDefault();
     await dbService.collection("jsweets").add({
+      // dbService.collection.add를 쓰기 위해선 firestore import 해주기 !
       // firebaseStore에 jsweet가 collection으로 생성됨
+      // "jsweets"는 collectionPath 경로
+      // add 는 그냥 data가 들어가는 거
+      // 위를 합치면, 명시된 데이터를 담은 새로운 document를 collections에 추가하는 거
       jsweet, //우리의 document의 key
       createdAt: Date.now(),
     });
