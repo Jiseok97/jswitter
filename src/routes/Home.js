@@ -1,8 +1,18 @@
 import { dbService } from "fbase";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Home = () => {
   const [jsweet, setJSweet] = useState("");
+  const [jsweets, setJSweets] = useState([]); // 배열로
+  // component가 mount 될 때, getJSweets를 실행
+  // getJSweets는 dbService를 불러와서 colletion("jsweets"), 그리고 get을 써서 다 가져옴
+  const getJSweets = async () => {
+    const dbJSweets = await dbService.collection("jsweets").get();
+    dbJSweets.forEach((document) => console.log(document.data()));
+  };
+  useEffect(() => {
+    getJSweets();
+  }, []);
   const onSubmit = async (event) => {
     // async -> await가 promise로 리턴하니까 넣어줌
     event.preventDefault();
