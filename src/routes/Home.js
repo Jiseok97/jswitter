@@ -8,7 +8,20 @@ const Home = () => {
   // getJSweets는 dbService를 불러와서 colletion("jsweets"), 그리고 get을 써서 다 가져옴
   const getJSweets = async () => {
     const dbJSweets = await dbService.collection("jsweets").get();
-    dbJSweets.forEach((document) => console.log(document.data()));
+
+    // dbJSweets.forEach((document) => console.log(document.data())); // 내 state에 있는 각각의 document.data()를 console.log 함
+    // setJSweets에 값이 아닌 함수를 넣음, 모든 이전 jsweets에 대해 배열을 리턴, 그 배열은 새로 작성한 트윗과 그 이전 것들
+    // 함수를 전달 시, 리액트는 이전 값을 접근할 수 있게 해줌
+
+    dbJSweets.forEach((document) => {
+      const jsweetObject = {
+        ...document.data(),
+        // ... (= spread attribute 기능) && document.data()는 데이터를 가져와서 풀어내는 것
+        // 즉, ...은 데이터의 내용물
+        id: document.id,
+      };
+      setJSweets((prev) => [jsweetObject, ...prev]);
+    });
   };
   useEffect(() => {
     getJSweets();
@@ -33,7 +46,6 @@ const Home = () => {
     } = event; // event 안에 있는 target 안에 있는 value를 가져옴
     setJSweet(value);
   };
-
   // submit 할 때마다 document를 생성
   return (
     <div>
@@ -47,6 +59,13 @@ const Home = () => {
         />
         <input type="submit" value="JSweet" />
       </form>
+      <div>
+        {jsweets.map((jsweet) => (
+          <div key={jsweet.id}>
+            <h4>{jsweet.jsweet}</h4>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
