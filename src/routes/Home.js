@@ -1,3 +1,4 @@
+import JSweet from "components/JSweet";
 import { dbService } from "fbase";
 import React, { useEffect, useState } from "react";
 
@@ -59,9 +60,11 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {jsweets.map((jsweet) => (
-          <div key={jsweet.id}>
-            <h4>{jsweet.text}</h4>
-          </div>
+          <JSweet
+            key={jsweet.id}
+            jsweetObj={jsweet}
+            isOwner={jsweet.creatorId === userObj.uid}
+          /> // isOwner는 true || false 값 가짐, 글쓴이만 볼 수 있게 하기 위함
         ))}
       </div>
     </div>
