@@ -8,6 +8,8 @@ const Home = ({ userObj }) => {
   // getJSweets는 dbService를 불러와서 colletion("jsweets"), 그리고 get을 써서 다 가져옴
   useEffect(() => {
     dbService.collection("jsweets").onSnapshot((snapshot) => {
+      // onSnapshot (= listener) : DB의 변화를 실시간으로 알려줌(realtime)
+      // doc가 우리가 가지고 있는 jsweets 배열(게시물)
       const jsweetArray = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -15,6 +17,11 @@ const Home = ({ userObj }) => {
       setJSweets(jsweetArray);
     });
   }, []);
+
+  // jsweets 가져오는 방법(게시물)
+  // (1) Array를 통해 onSnapshot으로 setJSweets하는 방법 (현 방식,(realtime))
+  // (2) forEach를 쓰는 방법 ( 구방식, query 이용하는 듯 )
+
   const onSubmit = async (event) => {
     // async -> await가 promise로 리턴하니까 넣어줌
     event.preventDefault();
