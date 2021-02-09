@@ -3,8 +3,8 @@ import React, { useState } from "react";
 
 // isOwner => 내가 주인이면 이 버튼 fragment 들을 볼 수 있음
 const JSweet = ({ jsweetObj, isOwner }) => {
-  const [editing, setEditing] = useState(false);
-  const [newJSweet, setNewJSweet] = useState(jsweetObj.text);
+  const [editing, setEditing] = useState(false); // editing 모드인지 아닌지 구분
+  const [newJSweet, setNewJSweet] = useState(jsweetObj.text); // input 에 입력된 text update
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this jsweet?");
     console.log(ok);
@@ -15,8 +15,12 @@ const JSweet = ({ jsweetObj, isOwner }) => {
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    await dbService.doc(`jsweets/${jsweetObj.id}`).update({
+      text: newJSweet,
+    });
+    setEditing(false);
   };
   const onChange = (event) => {
     const {
@@ -37,6 +41,7 @@ const JSweet = ({ jsweetObj, isOwner }) => {
               required
               onChange={onChange}
             />
+            <input type="submit" value="Update JSweet" />
           </form>
           <button onClick={toggleEditing}>Cancle</button>
         </>
