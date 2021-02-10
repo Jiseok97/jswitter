@@ -5,6 +5,8 @@ import Home from "routes/Home";
 import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
 
+// router는 App.js에 의해서 같은 userObj prop 수신
+
 const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
     <Router>
@@ -19,6 +21,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
           <>
             <Route exact path="/">
               <Home userObj={userObj} />
+              {/* Home은 userObj를 받고 있음!! */}
             </Route>
             <Route exact path="/profile">
               <Profile />

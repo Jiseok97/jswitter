@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import AppRouter from "components/Router";
 import { authService } from "fbase";
 
+// App.js 는 onAuthStateChanged state 변화를 다룸
+// onAuthStateChanged => 로그인 || 로그아웃 || 어플리케이션 초기화 될 때 발생
+
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     // user의 변화를 listen 하는 곳
@@ -14,18 +16,15 @@ function App() {
     authService.onAuthStateChanged((user) => {
       // 변화를 감지, 누군가 CreateAccount클릭, Log In, 이미 로그인 되어 있어서 fireabse는 스스로 초기화 하는 것
       if (user) {
-        setIsLoggedIn(true);
         setUserObj(user);
-      } else {
-        setIsLoggedIn(false);
       }
-      setInit(true);
+      setInit(true); // 언제 시작해도 onAuthStateChanged 실행을 위함
     });
   }, []); // , [] => 처음 시작할 때, 컴포넌트가 mount 될 떄, 실행됨!!(hooks)
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} /> // userObj가 존재할 때 로그인(isLoggedIn)
       ) : (
         "Initializing..."
       )}
