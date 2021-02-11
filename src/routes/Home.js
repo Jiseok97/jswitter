@@ -5,8 +5,11 @@ import React, { useEffect, useState } from "react";
 const Home = ({ userObj }) => {
   const [jsweet, setJSweet] = useState(""); // form을 위한 state
   const [jsweets, setJSweets] = useState([]); // 배열로
+  const [attachment, setAttachment] = useState();
+
   // component가 mount 될 때, getJSweets를 실행
   // getJSweets는 dbService를 불러와서 colletion("jsweets"), 그리고 get을 써서 다 가져옴
+
   useEffect(() => {
     dbService.collection("jsweets").onSnapshot((snapshot) => {
       // onSnapshot (= listener) : DB의 변화를 실시간으로 알려줌(realtime)
@@ -53,10 +56,15 @@ const Home = ({ userObj }) => {
     const theFile = files[0]; // 1) 파일을 갖고
     const reader = new FileReader(); // 2) reader을 만들고
     reader.onloadend = (finishedEvent) => {
-      console.log(finishedEvent);
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      setAttachment(result);
     };
     reader.readAsDataURL(theFile); // 3) readAsDataURL 을 사용해서 파일을 읽기
   };
+  const onClearAttachment = () => setAttachment(null);
+
   // submit 할 때마다 document를 생성
   return (
     <div>
@@ -70,6 +78,12 @@ const Home = ({ userObj }) => {
         />
         <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="JSweet" />
+        {attachment && (
+          <div>
+            <img src={attachment} width="80px" height="80px" />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
       </form>
       <div>
         {jsweets.map((jsweet) => (
