@@ -46,7 +46,17 @@ const Home = ({ userObj }) => {
     } = event; // event 안에 있는 target 안에 있는 value를 가져옴
     setJSweet(value);
   };
-
+  const onFileChange = (event) => {
+    const {
+      target: { files },
+    } = event; // event 안에서 target 안으로 가서 파일을 받아 오는 것 의미
+    const theFile = files[0]; // 1) 파일을 갖고
+    const reader = new FileReader(); // 2) reader을 만들고
+    reader.onloadend = (finishedEvent) => {
+      console.log(finishedEvent);
+    };
+    reader.readAsDataURL(theFile); // 3) readAsDataURL 을 사용해서 파일을 읽기
+  };
   // submit 할 때마다 document를 생성
   return (
     <div>
@@ -58,6 +68,7 @@ const Home = ({ userObj }) => {
           placeholder="What's on your mind?"
           maxLength={120}
         />
+        <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="JSweet" />
       </form>
       <div>
