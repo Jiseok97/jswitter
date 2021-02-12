@@ -29,7 +29,6 @@ const JSweet = ({ jsweetObj, isOwner }) => {
   };
   return (
     <div>
-      <h4>{jsweetObj.text}</h4>
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
@@ -46,6 +45,10 @@ const JSweet = ({ jsweetObj, isOwner }) => {
         </>
       ) : (
         <>
+          <h4>{jsweetObj.text}</h4>
+          {jsweetObj.attachmentUrl && (
+            <img src={jsweetObj.attachmentUrl} width="50px" height="50px" />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete JSweet</button>
