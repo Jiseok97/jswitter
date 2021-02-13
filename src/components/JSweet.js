@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 
 // isOwner => 내가 주인이면 이 버튼 fragment 들을 볼 수 있음
@@ -11,6 +11,7 @@ const JSweet = ({ jsweetObj, isOwner }) => {
       // delete jsweet
       // doc 경로는 firebase보면 됨 ( document -> collection -> jsweet의 아이디)
       await dbService.doc(`jsweets/${jsweetObj.id}`).delete();
+      await storageService.refFromURL(jsweetObj.attachmentUrl).delete(); // url에서 reference 얻는 방법(refFromURL)
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
