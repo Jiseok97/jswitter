@@ -33,7 +33,7 @@ const Home = ({ userObj }) => {
     // async -> await가 promise로 리턴하니까 넣어줌
     event.preventDefault();
     let attachmentUrl = "";
-    if (attachment != "") {
+    if (attachment !== "") {
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
