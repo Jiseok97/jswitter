@@ -32,21 +32,29 @@ const Home = ({ userObj }) => {
   const onSubmit = async (event) => {
     // async -> await가 promise로 리턴하니까 넣어줌
     event.preventDefault();
-    const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-    const response = await fileRef.putString(attachment, "data_url");
-    console.log(response);
+    let attachmentUrl = "";
+    if (attachment != "") {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${userObj.uid}/${uuidv4()}`);
+      const response = await attachmentRef.putString(attachment, "data_url");
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
+    const jsweetObj = {
+      text: jsweet, //우리의 document의 key
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      attachmentUrl,
+    };
+    await dbService.collection("jsweets").add(jsweetObj);
+    // dbService.collection.add를 쓰기 위해선 firestore import 해주기 !
+    // firebaseStore에 jsweet가 collection으로 생성됨
+    // "jsweets"는 collectionPath 경로
+    // add 는 그냥 data가 들어가는 거
+    // 위를 합치면, 명시된 데이터를 담은 새로운 document를 collections에 추가하는 거
 
-    // await dbService.collection("jsweets").add({
-    //   // dbService.collection.add를 쓰기 위해선 firestore import 해주기 !
-    //   // firebaseStore에 jsweet가 collection으로 생성됨
-    //   // "jsweets"는 collectionPath 경로
-    //   // add 는 그냥 data가 들어가는 거
-    //   // 위를 합치면, 명시된 데이터를 담은 새로운 document를 collections에 추가하는 거
-    //   text: jsweet, //우리의 document의 key
-    //   createdAt: Date.now(),
-    //   creatorId: userObj.uid,
-    // });
-    // setJSweet(""); // submit 하고 나면, setJSweet() 해주기
+    setJSweet(""); // submit 하고 나면, setJSweet() 해주기
+    setAttachment("");
   };
   const onChange = (event) => {
     const {
