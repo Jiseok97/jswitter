@@ -24,7 +24,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
               {/* Home은 userObj를 받고 있음!! */}
             </Route>
             <Route exact path="/profile">
-              <Profile />
+              <Profile userObj={userObj} />
             </Route>
             {/* <Redirect from="*" to="/" /> 
             단, import Redirect 할 것.

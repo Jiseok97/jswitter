@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 const Home = ({ userObj }) => {
   const [jsweet, setJSweet] = useState(""); // form을 위한 state
   const [jsweets, setJSweets] = useState([]); // 배열로
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
 
   // component가 mount 될 때, getJSweets를 실행
   // getJSweets는 dbService를 불러와서 colletion("jsweets"), 그리고 get을 써서 다 가져옴
