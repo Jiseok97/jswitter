@@ -8,6 +8,7 @@ export default ({ userObj }) => {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const onLogOutClick = () => {
     authService.signOut();
+    // authService.currentUser.uid -> userObj를 소스 공유 없이 할 경우 uid 가져오는 방법
     history.push("/");
   };
   const onChange = (event) => {
