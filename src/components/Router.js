@@ -11,7 +11,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
     <Router>
       {/* && => Navigation이 존재하려면, isLoggedIn이 true여야 함 */}
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (
           // <>(fragment) = 많은 요소들을 render 하고 싶을 때 사용 (단, 부모 요소가 없을 때)
