@@ -12,6 +12,7 @@ export default ({ userObj }) => {
   const getMyJSweets = async () => {
     const jsweets = await dbService
       .collection("jsweets")
+      // query 문
       .where("creatorId", "==", userObj.uid) // where() => 필터링 방법
       .orderBy("createdAt") // orderBy() => 결과를 어떠한 순서에 따라 필터링
       .get();
