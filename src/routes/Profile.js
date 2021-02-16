@@ -2,7 +2,7 @@ import { authService } from "fbase";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-export default ({ userObj }) => {
+export default ({ refreshUser, userObj }) => {
   // useHistory() -> history 상수를 만들어 push 함
   const history = useHistory();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -24,6 +24,7 @@ export default ({ userObj }) => {
       await userObj.updateProfile({
         displayName: newDisplayName,
       });
+      refreshUser();
     }
   };
   return (

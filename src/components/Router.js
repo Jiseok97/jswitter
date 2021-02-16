@@ -6,8 +6,8 @@ import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
 
 // router는 App.js에 의해서 같은 userObj prop 수신
-
-const AppRouter = ({ isLoggedIn, userObj }) => {
+// App.js 에 있는 refreshUser 기능을 profile에도 적용시켜 줄 예정
+const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {/* && => Navigation이 존재하려면, isLoggedIn이 true여야 함 */}
@@ -24,7 +24,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
               {/* Home은 userObj를 받고 있음!! */}
             </Route>
             <Route exact path="/profile">
-              <Profile userObj={userObj} />
+              <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
             {/* <Redirect from="*" to="/" /> 
             단, import Redirect 할 것.

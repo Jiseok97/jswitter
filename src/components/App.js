@@ -16,15 +16,36 @@ function App() {
     authService.onAuthStateChanged((user) => {
       // 변화를 감지, 누군가 CreateAccount클릭, Log In, 이미 로그인 되어 있어서 fireabse는 스스로 초기화 하는 것
       if (user) {
-        setUserObj(user);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          updateProfile: (args) => user.updateProfile(args),
+        });
       }
       setInit(true); // 언제 시작해도 onAuthStateChanged 실행을 위함
     });
   }, []); // , [] => 처음 시작할 때, 컴포넌트가 mount 될 떄, 실행됨!!(hooks)
+  const refreshUser = () => {
+    // updqteProfile을 사용하면 firebase 쪽에 있는 user를 새로고침 해주는데
+    // 우리 header(navigation)은 firebase에 연결 되어 있지 않음
+    // navigation은 userObj에 연결되어 있음
+    // 우리가 해야할 일: firebase의 정보를 가지고 react.js를 업데이트 해줘야 함 -> 그게 refreshUser
+    const user = authService.currentUser;
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (args) => user.updateProfile(args),
+    });
+  };
+
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} /> // userObj가 존재할 때 로그인(isLoggedIn)
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        /> // userObj가 존재할 때 로그인(isLoggedIn)
       ) : (
         "Initializing..."
       )}
