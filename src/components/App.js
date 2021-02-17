@@ -21,6 +21,8 @@ function App() {
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
         });
+      } else {
+        setUserObj(null);
       }
       setInit(true); // 언제 시작해도 onAuthStateChanged 실행을 위함
     });
