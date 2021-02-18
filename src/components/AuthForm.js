@@ -1,6 +1,8 @@
 import { authService } from "fbase";
 import React, { useState } from "react";
 
+const inputSytle = {};
+
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +48,7 @@ const AuthForm = () => {
   const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="container">
         {/* input의 value는 state에 저장됨 */}
         <input
           name="email"
@@ -55,6 +57,7 @@ const AuthForm = () => {
           required
           value={email}
           onChange={onChange}
+          className="authInput"
         />
         <input
           name="password"
@@ -63,11 +66,16 @@ const AuthForm = () => {
           required
           value={password}
           onChange={onChange}
+          className="authInput"
         />
-        <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
-        {error}
+        <input
+          type="submit"
+          value={newAccount ? "Create Account" : "Log In"}
+          className="authInput authSubmit"
+        />
+        {error && <span className="authError">{error}</span>}
       </form>
-      <span onClick={toggleAccount}>
+      <span onClick={toggleAccount} className="authSwitch">
         {newAccount ? "Log In" : "Create Account"}
       </span>
     </>
