@@ -18,7 +18,16 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
           // div, span 이런거 쓰기 싫을 때
 
           // 로그인 되었을 때
-          <>
+          <div
+            style={{
+              maxWidth: 890,
+              width: "100%",
+              margin: "0 auto",
+              marginTop: 80,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Route exact path="/">
               <Home userObj={userObj} />
               {/* Home은 userObj를 받고 있음!! */}
@@ -31,7 +40,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             Redirect는 다 "/"로 redirect 됨
             여기서도 가능하나 Profile.js에서 프로그램상으로 
             Home 페이지로 이동하는 function 추가함*/}
-          </>
+          </div>
         ) : (
           // 로그인 안되었을 때 Auth
           <>
