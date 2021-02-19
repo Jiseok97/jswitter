@@ -24,9 +24,9 @@ const Home = ({ userObj }) => {
 
   // submit 할 때마다 document를 생성
   return (
-    <div>
+    <div className="container">
       <JSweetFactory userObj={userObj} />
-      <div>
+      <div style={{ marginTop: 30 }}>
         {jsweets.map((jsweet) => (
           <JSweet
             key={jsweet.id}
