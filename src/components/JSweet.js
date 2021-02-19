@@ -1,5 +1,7 @@
 import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 // isOwner => 내가 주인이면 이 버튼 fragment 들을 볼 수 있음
 const JSweet = ({ jsweetObj, isOwner }) => {
@@ -29,32 +31,38 @@ const JSweet = ({ jsweetObj, isOwner }) => {
     setNewJSweet(value);
   };
   return (
-    <div>
+    <div className="jsweet">
       {editing ? (
         <>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} className="container jsweetEdit">
             <input
               type="text"
               placeholder="Edit your jsweet"
               value={newJSweet}
               required
+              autoFocus
               onChange={onChange}
+              classname="formInput"
             />
-            <input type="submit" value="Update JSweet" />
+            <input type="submit" value="Update JSweet" className="formBtn" />
           </form>
-          <button onClick={toggleEditing}>Cancle</button>
+          <span onClick={toggleEditing} className="formBtn cancelBtn">
+            Cancel
+          </span>
         </>
       ) : (
         <>
           <h4>{jsweetObj.text}</h4>
-          {jsweetObj.attachmentUrl && (
-            <img src={jsweetObj.attachmentUrl} width="50px" height="50px" />
-          )}
+          {jsweetObj.attachmentUrl && <img src={jsweetObj.attachmentUrl} />}
           {isOwner && (
-            <>
-              <button onClick={onDeleteClick}>Delete JSweet</button>
-              <button onClick={toggleEditing}>Edit JSweet</button>
-            </>
+            <div class="jsweet__actions">
+              <span onClick={onDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </span>
+              <span onClick={toggleEditing}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </span>
+            </div>
           )}
         </>
       )}
