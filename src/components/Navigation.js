@@ -13,16 +13,7 @@ const Navigation = ({ userObj }) => (
         </Link>
       </li>
       <li>
-        <Link
-          to="/profile"
-          style={{
-            marginLeft: 10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            fontSize: 12,
-          }}
-        >
+        <Link to="/profile" className="navStyle">
           <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
           <span style={{ marginTop: 10 }}>
             {userObj.displayName

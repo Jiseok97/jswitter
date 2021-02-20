@@ -274,3 +274,13 @@ form {
   font-size: 12px;
   text-decoration: underline;
 }
+
+/* Router */
+
+.navStyle {
+  margin-left: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12;
+}
