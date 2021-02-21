@@ -5,6 +5,8 @@ import { authService } from "fbase";
 // App.js 는 onAuthStateChanged state 변화를 다룸
 // onAuthStateChanged => 로그인 || 로그아웃 || 어플리케이션 초기화 될 때 발생
 
+// Update security on firebase - 02/21
+
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
