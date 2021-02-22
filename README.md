@@ -3,3 +3,7 @@
 # JSwitter
 
 JSwitter clone with React and Firebase
+
+## Study
+
+for React, Fireabse, Javascript
