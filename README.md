@@ -4,6 +4,6 @@
 
 JSwitter clone with React and Firebase
 
-## Study
+## Developer
 
-for React, Fireabse, Javascript
+jiseok97
